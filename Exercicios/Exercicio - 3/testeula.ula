@@ -1,0 +1,25 @@
+inicio:
+X=-3.3;
+Y=13,8;
+W=AeB;
+W=AoB;
+Y=-13;
+X=5;
+W=nAeB;
+W=Bn;
+W=nAoB;
+W=nAoB;
+W=AxB;
+W=nAxB;
+W=AoB;
+X=9;
+W=An;
+W=Bn;
+Y=10;
+Y=7;
+W=AoB;
+X=3;
+X=-2;
+Y = -2;
+W=Bn;
+fim.
