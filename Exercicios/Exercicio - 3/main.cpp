@@ -4,11 +4,18 @@
 #include <string>
 #include <cmath>
 
+/* Definição de duas constantes que representam os caminhos para dois arquivos distintos. Um representa o arquivo de entrada (INPUT) e o outro de saída (OUTPUT). */
 #define INPUT_FILE "./testeula.ula"
 #define OUTPUT_FILE "./testeula.hex"
 
+// variável que tem como objetivo representar o tamanho máximo de qualquer tipo. Recebe o valor 0.
 size_t lineIndex = 0;
 
+/* Esse código define uma classe "Variable" que representa uma variável com um nome e um valor. A 
+classe tem um construtor que aceita dois argumentos: uma string que representa o nome da variável e um valor do tipo int8_t que representa o valor da variável.
+
+A classe possui três funções públicas: "getName(): recebe o valor da variavel nome", "getValue(): recebe o valor da variável valor" e "setValue(): define um valor passado por parâmetro à variável valor". 
+*/
 class Variable {
     private:
         std::string name;
@@ -33,6 +40,21 @@ class Variable {
         }
 };
 
+/*
+A classe possui uma série de constantes inteiras que representam operações lógicas binárias e outras ações, como copiar valores de uma variável para outra.
+
+A classe também contém um vetor de objetos da classe "Variable" que são usados para armazenar variáveis e seus valores.
+
+A função "getHexValue" é uma função auxiliar para converter um valor inteiro em sua representação hexadecimal como um caractere.
+
+A função "recognize" é usada para reconhecer uma expressão de operação lógica ou ação e retornar o código de operação correspondente. Se a expressão não for reconhecida, o valor de "attr" é retornado, que representa o código de operação para atribuir um valor a uma variável.
+
+A função "compile" é usada para compilar uma operação ou atribuição de variável em uma string de saída que pode ser interpretada posteriormente. O primeiro parâmetro é o código de operação ou atribuição de variável, o segundo parâmetro é o nome da variável e o terceiro parâmetro é uma expressão que pode ser um valor numérico ou outra variável. Se a expressão for uma atribuição de valor, a função "setVariable" é chamada para definir o valor da variável especificada.
+
+A função "setVariable" é usada para definir o valor de uma variável existente ou adicionar uma nova variável ao vetor "variables".
+
+A função "getVariable" é usada para recuperar o valor de uma variável especificada.
+*/
 class Operations {
     private:
         std::vector<Variable> variables;
@@ -151,6 +173,9 @@ class Operations {
         }
 };
 
+/*
+Função que recebe o caminho do arquivo a ser aberto como um parâmetro e retorna um objeto std::ifstream, que é uma classe para leitura de arquivos em C++.
+*/
 std::ifstream openFile(std::string programPath) {
     std::ifstream fileStream;
     fileStream.open(programPath);
@@ -163,6 +188,9 @@ std::ifstream openFile(std::string programPath) {
     return fileStream;
 }
 
+/*
+Função que recebe o caminho do arquivo e uma string hexadecimal como parâmetros e escreve a string no arquivo especificado.
+*/
 void printToFile(std::string filePath, std::string hex) {
     if(hex.length() == 0) return;
 
@@ -172,17 +200,26 @@ void printToFile(std::string filePath, std::string hex) {
     fileStream.close();
 }
 
+/*
+Função que recebe o caminho do arquivo como parâmetro e cria ou sobrescreve o arquivo especificado, deixando-o vazio.
+*/
 void init(std::string filePath) {
     std::ofstream stream;
     stream.open(filePath, std::ofstream::out | std::ofstream::trunc);
     stream.close();
 }
 
+/*
+Função que remove todos os espaços em branco no início e no final de uma string, modificando a string original passada por referência.
+*/
 void trim(std::string& str) {
     for(size_t i = 0; i < str.length(); i++)
         if(str[i] == ' ') str.erase(i--, 1);
 }
 
+/*
+Função que lê um arquivo de entrada contendo uma lista de operações e seus operandos, executa as operações e grava o resultado em um arquivo de saída.
+*/
 int main() {
     init(OUTPUT_FILE);
 
