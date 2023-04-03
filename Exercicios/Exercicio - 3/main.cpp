@@ -146,9 +146,14 @@ class Operations {
                     position = expression.find(",");
                     if(position != std::string::npos) expression.replace(position, 1, ".");
 
-                    num = std::round(std::stof(expression));
-                    std::cout << num << std::endl;
-                    setVariable(variable, (int8_t)num);
+                    try {
+                        num = std::round(std::stof(expression));
+                        if(num < -15 || num > 15) {
+                            std::cout << "[WARNING] Argument " << num << " at line " << lineIndex << " is out of range for a hex variable." << std::endl;
+                        } else setVariable(variable, (int8_t)num);
+                    } catch(std::invalid_argument const&) {
+                        std::cout << "[WARNING] Invalid argument on float parsing at line " << lineIndex << ". " << expression << std::endl;
+                    }
             }
                     
             return str;
@@ -227,13 +232,20 @@ int main() {
 
     std::string line;
     do getline(fileStream, line); while(line != "inicio:");
+    lineIndex++;
 
     Operations operations;
     getline(fileStream, line);
-    while(line != "fim.") {
+    while(line != "fim." && line != "fim;") {
+        lineIndex++;
         trim(line);
-        if(line.length() > 0 && line[0] != ';') {
-            lineIndex++;
+        
+        size_t j = 0;
+        while(j < line.length() && line[j] == ';') j++;
+        
+        line = line.substr(j, line.length() - j);
+
+        if(line.length() > 0) {
             size_t eqpos = line.find('=');
             size_t scpos = line.find(';');
 
