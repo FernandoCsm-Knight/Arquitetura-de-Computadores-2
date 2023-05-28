@@ -130,6 +130,11 @@ class Operations {
                 case AoBn:
                 case copiaB:
                 case copiaA:
+                    if(variable != "W") {
+                        std::cout << "[WARNING] Invalid variable at line " << lineIndex << "." << std::endl;
+                        return "";
+                    }
+
                     if(variables.size() < 2) {
                         std::cout << "[WARNING] Not enough variables to compile at line " << lineIndex << "." << std::endl;
                         return "";
