@@ -22,7 +22,7 @@ lw $s3, 0($s4) # n = LEN
 or $s0, $0, $0 # i = 0
 addi $t0, $s3, -1 # t0 = n - 1
 for_1:
-	beq $s0, $s3, end_for_1 # if i == n-1: goto end_for_1
+	beq $s0, $t0, end_for_1 # if i == n-1: goto end_for_1
 	
 	or $s1, $0, $0 # j = 0
 	sub $t1, $s3, $s0 # t1 = n - i

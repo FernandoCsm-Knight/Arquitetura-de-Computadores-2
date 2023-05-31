@@ -16,7 +16,7 @@ main:
 	mult $s0, $s0 # lo = x²
 	
 	slt $t1, $0, $s0 # if 0 < x: t1 = 1 else: t1 = 0
-	beq $t1, $0, lessthanzero # id t1 == 0: goto lessthanzero
+	beq $t1, $0, lessthanzero # if t1 == 0: goto lessthanzero
 	
 	mflo $t1 # t1 = x²
 	
@@ -35,7 +35,7 @@ main:
 	addi $t1, $t1, -1 # t1 = x⁴ - 1 
 	
 end:
-	sw $t1, 4($t0) # MEM[t0 + 4] = t1
+	sw $t1, 4($t0) # MEM[t0 + 1] = t1
 
 .data
 NUMBER: .word 82

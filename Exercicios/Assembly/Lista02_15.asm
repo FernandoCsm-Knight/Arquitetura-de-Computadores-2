@@ -23,16 +23,16 @@ main:
 	mult $t0, $s0 # lo = x³
 	mflo $t2 # t2 = x³
 	
-	ori $t3, $0, 0x0001 # t2 = 1
-	and $t3, $s0, $t3 # t2 = bit menos significativo de x
-	bne $t3, $0, odd # if t2 % 2 != 0: goto odd
+	ori $t3, $0, 0x0001 # t3 = 1
+	and $t3, $s0, $t3 # t3 = bit menos significativo de x
+	bne $t3, $0, odd # if t3 % 2 != 0: goto odd
 	
 	add $t1, $t1, $t2 # t1 = x⁴ + x³
 	sub $t1, $t1, $t0 # t1 = x⁴ + x³ - x²
 	sub $t1, $t1, $t0 # t1 = x⁴ + x³ - 2x²
 	
 	j end
-	odd:³	
+	odd:
 		mult $t1, $s0 # lo = x⁵
 		mflo $t1 # t1 = x⁵
 		

@@ -12,8 +12,7 @@
 .globl main
 
 main:
-ori $s1, $0, 0x1001 # A = 0x00001001
-sll $s1, $s1, 16 # A = 0x10010000
+lui $s1, 0x1001 # A = 0x10010000
 lw $s0, 0($s1) # len = A.length
 
 or $s2, $0, $0 # i = 0 
@@ -31,6 +30,7 @@ do_while:
 	bne $s2, $s0, do_while # if i != 100: goto for
 
 sw $t2, 4($t0)
+ 
 
 .data
 LEN: .word 100
