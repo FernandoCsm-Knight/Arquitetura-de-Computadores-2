@@ -10,8 +10,8 @@
 #
 # else if mediana >= C and mediana >= B:
 #     meidana = B
-#     if C < B:
-#         mediana  = C
+#     if C >= B:
+#         mediana = C
 #
 
 .text
@@ -35,18 +35,20 @@ lw $t2, 8($t0) # t2 = C
 	else:
 	bne $t3, $0, end # if t3 != 0: goto end
 	bne $t4, $0, end # if t4 != 0: goto end
+	or $t4, $0, 0 # t4 = 0
 	
 	other_if:
 	or $s0, $0, $t1 # mediana = B
 	slt $t3, $t2, $s0 # if C < B: t3 = 1 else: t3 = 0
-	bne $t3, $0, end # if t3 == 0: goto end
+	bne $t3, $t4, end # if t3 != t4: goto end
 	
 	or $s0, $0, $t2 # mediana = C
 	
 end:
 sw $s0, 12($t0) # MEM[t0 + 12] = mediana
 
+
 .data 
 A: .word 23
 B: .word 98
-C: .word 17
+C: .word 30

@@ -2,7 +2,6 @@
 #
 # len = $s0
 # A => $s1
-# i => $s2
 #
 # A[] = 0..100
 # y = sum(A)
@@ -15,7 +14,6 @@ main:
 lui $s1, 0x1001 # A = 0x10010000
 lw $s0, 0($s1) # len = A.length
 
-or $s2, $0, $0 # i = 0 
 or $t2, $0, $0 # t2 = 0
 or $t0, $0, $s1 # t0 = A
 
@@ -23,11 +21,10 @@ do_while:
 	addi $t0,$t0, 4 # t0 = t0 + 4
 	lw $t1, 0($t0) # t1 = A[t0] 
 	add $t2, $t2, $t1 # t2 = t2 + t1
-	
 	nop
 	nop
-	addi $s2, $s2, 1 # i++
-	bne $s2, $s0, do_while # if i != 100: goto for
+	addi $s0, $s0, -1 # len--
+	bne $s0, $0, do_while # if len != 0: goto for
 
 sw $t2, 4($t0)
  
